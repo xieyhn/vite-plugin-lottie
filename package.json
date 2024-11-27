@@ -1,0 +1,20 @@
+{
+  "name": "vite-plugin-lottie",
+  "type": "module",
+  "version": "0.0.0",
+  "author": "xieyuhang",
+  "license": "ISC",
+  "keywords": [],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts"
+  },
+  "peerDependencies": {
+    "vite": "*"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.11.0",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.15.0",
+    "tsup": "^8.3.5"
+  }
+}
