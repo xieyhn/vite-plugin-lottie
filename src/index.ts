@@ -2,7 +2,7 @@ import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { normalizePath, type Plugin, type ResolvedConfig } from 'vite'
 
-const lottieReg = /(\?|&)lottie(&|$)/
+const lottieReg = /[?&]lottie(?=&|$)/
 const postfixRE = /[?#].*$/
 function cleanUrl(url: string): string {
   return url.replace(postfixRE, '')
@@ -28,9 +28,6 @@ export function lottie(): Plugin {
     async resolveId(id, importer) {
       if (!lottieReg.test(id))
         return
-
-      if (config.command === 'serve')
-        return this.resolve(id.replace(lottieReg, '$1url$2'), importer, { skipSelf: true })
 
       if (path.extname(cleanUrl(id)) === '.lottie')
         return id
@@ -58,21 +55,29 @@ export function lottie(): Plugin {
           if (asset.p && /\.png|jpe?g$/.test(asset.p)) {
             const assetId = path.resolve(path.dirname(id), path.join(asset.u || '', asset.p))
             this.addWatchFile(assetId)
-            const referenceId = this.emitFile({
-              type: 'asset',
-              source: await fsp.readFile(assetId),
-              name: path.basename(assetId),
-            })
             Reflect.deleteProperty(asset, 'u')
-            asset.p = `$import.meta.ROLLUP_FILE_URL_${referenceId}`
+
+            if (config.command === 'serve') {
+              asset.p = path.relative(config.root, assetId)
+            }
+            else {
+              const referenceId = this.emitFile({
+                type: 'asset',
+                source: await fsp.readFile(assetId),
+                name: path.basename(assetId),
+              })
+              asset.p = `$import.meta.ROLLUP_FILE_URL_${referenceId}`
+            }
           }
         }
       }
 
-      const str = JSON.stringify(json)
-        .replaceAll(/"\$(import\.meta\.ROLLUP_FILE_URL_\w+)"/g, (_, raw) => raw)
+      let code = JSON.stringify(json)
 
-      return `export default ${str}`
+      if (config.command !== 'serve')
+        code = code.replaceAll(/"\$(import\.meta\.ROLLUP_FILE_URL_\w+)"/g, (_, raw) => raw)
+
+      return `export default ${code}`
     },
   }
 }
