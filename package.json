@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-lottie",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "xieyuhang",
   "license": "ISC",
   "keywords": [],
@@ -9,6 +9,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./client.d.ts"
     }
   },
   "types": "./dist/index.d.ts",
