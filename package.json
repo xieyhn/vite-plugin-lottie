@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-lottie",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "xieyuhang",
   "license": "ISC",
   "keywords": [],
@@ -13,12 +13,16 @@
   },
   "types": "./dist/index.d.ts",
   "files": [
+    "client.d.ts",
     "dist"
   ],
   "scripts": {
     "dev": "tsup src/index.ts --watch --format esm --dts",
     "build": "tsup src/index.ts --format esm --dts",
-    "test": "vitest"
+    "test": "vitest",
+    "example": "vite -c example/vite.config.ts",
+    "example-build": "vite build -c example/vite.config.ts",
+    "prepare": "simple-git-hooks"
   },
   "peerDependencies": {
     "vite": "*"
@@ -27,7 +31,18 @@
     "@antfu/eslint-config": "^3.11.0",
     "@types/node": "^22.10.0",
     "eslint": "^9.15.0",
+    "lint-staged": "^15.2.10",
+    "lottie-web": "^5.12.2",
+    "simple-git-hooks": "^2.11.1",
     "tsup": "^8.3.5",
     "vitest": "^2.1.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "eslint --fix"
+    ]
   }
 }

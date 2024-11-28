@@ -8,7 +8,7 @@ export default await antfu(
   },
   {
     ignores: [
-      'src/assets/**/*',
+      'example/assets/**/*',
     ],
   },
 )

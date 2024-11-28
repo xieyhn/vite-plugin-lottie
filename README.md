@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-pnpm install vite-plugin-lottie
+pnpm install vite-plugin-lottie -D
 ```
 
 ## Usage
@@ -13,10 +13,13 @@ pnpm install vite-plugin-lottie
 vite.config.ts
 
 ```ts
-import lottie from 'vite-plugin-lottie'
+import { defineConfig } from 'vite'
+import { lottie } from 'vite-plugin-lottie'
 
 export default defineConfig({
-  plugins: [lottie()],
+  plugins: [
+    lottie()
+  ],
 })
 ```
 
@@ -35,3 +38,13 @@ onMounted(() => {
 })
 </script>
 ```
+
+## Types
+
+```ts
+/// <reference types="vite-plugin-lottie/client" />
+```
+
+## License
+
+[MIT](./LICENSE)

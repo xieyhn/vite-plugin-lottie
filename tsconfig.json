@@ -10,6 +10,7 @@
     "noEmit": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "client.d.ts"
   ]
 }
