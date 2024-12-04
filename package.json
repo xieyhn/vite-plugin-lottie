@@ -1,10 +1,19 @@
 {
   "name": "vite-plugin-lottie",
   "type": "module",
-  "version": "0.0.2",
-  "author": "xieyuhang",
-  "license": "ISC",
-  "keywords": [],
+  "version": "1.0.0",
+  "author": "xieyhn",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xieyhn/vite-plugin-lottie"
+  },
+  "keywords": [
+    "vite",
+    "lottie",
+    "plugin",
+    "vite-plugin"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
