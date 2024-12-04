@@ -1,6 +1,6 @@
 # vite-plugin-lottie
 
-> Work in progress!
+A vite plugin for bundle lottie files.
 
 ## Install
 
@@ -40,6 +40,8 @@ onMounted(() => {
 ```
 
 ## Types
+
+dts
 
 ```ts
 /// <reference types="vite-plugin-lottie/client" />
