@@ -58,7 +58,7 @@ export function lottie(): Plugin {
             Reflect.deleteProperty(asset, 'u')
 
             if (config.command === 'serve') {
-              asset.p = path.relative(config.root, assetId)
+              asset.p = path.join(config.base, path.relative(config.root, assetId))
             }
             else {
               const referenceId = this.emitFile({
@@ -66,7 +66,7 @@ export function lottie(): Plugin {
                 source: await fsp.readFile(assetId),
                 name: path.basename(assetId),
               })
-              asset.p = `$import.meta.ROLLUP_FILE_URL_${referenceId}`
+              asset.p = `$\{import.meta.ROLLUP_FILE_URL_${referenceId}\}`
             }
           }
         }
@@ -75,7 +75,7 @@ export function lottie(): Plugin {
       let code = JSON.stringify(json)
 
       if (config.command !== 'serve')
-        code = code.replaceAll(/"\$(import\.meta\.ROLLUP_FILE_URL_\w+)"/g, (_, raw) => raw)
+        code = code.replaceAll(/"\$\{(import\.meta\.ROLLUP_FILE_URL_.+?)\}"/g, (_, raw) => raw)
 
       return `export default ${code}`
     },
